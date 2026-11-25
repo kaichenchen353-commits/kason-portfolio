@@ -1,0 +1,61 @@
+/* Reference cursor: 16px default, 80px See, 350px square Expand.
+   Shapes reconstructed from the public reference's four cursor variants. */
+html,body{overflow-x:clip}
+.contrast-cursor{position:fixed;left:0;top:0;z-index:10000;pointer-events:none;opacity:0;mix-blend-mode:difference;transition:opacity .12s}
+.cursor-shape{position:absolute;left:0;top:0;width:16px;height:16px;transform:translate(-50%,-50%);transition:width .4s cubic-bezier(.22,.75,.25,1),height .4s cubic-bezier(.22,.75,.25,1),scale .2s}
+.cursor-base{position:absolute;inset:0;border-radius:128px;background:#fff;transition:inset .4s,border-radius .4s}
+.cursor-shape>i{position:absolute;width:16px;height:16px;background:#fff;border-radius:16px;transition:border-radius .4s}
+.cursor-shape>i:nth-of-type(1){right:0;bottom:0}
+.cursor-shape>i:nth-of-type(2){left:0;bottom:0}
+.cursor-shape>i:nth-of-type(3){right:0;top:0}
+.cursor-shape>i:nth-of-type(4){left:0;top:0}
+.cursor-tag{position:absolute;top:100%;left:100%;height:24px;min-width:42px;padding:4px 9px;display:grid;place-items:center;background:white;color:#000;border-radius:0 24px 24px 24px;font-size:12px;line-height:16px;font-weight:500;white-space:nowrap}
+.cursor-see{display:none;position:absolute;inset:0;place-items:center;font-size:24px;font-weight:500;color:#000}
+.contrast-cursor[data-kind=expand] .cursor-shape{width:min(350px,35vw);height:min(350px,35vw)}
+.contrast-cursor[data-kind=expand] .cursor-base{inset:8px;border-radius:0}
+.contrast-cursor[data-kind=expand] .cursor-shape>i{border-radius:0}
+.contrast-cursor[data-kind=see] .cursor-shape{width:80px;height:80px}
+.contrast-cursor[data-kind=see] .cursor-shape>i{opacity:0}
+.contrast-cursor[data-kind=see] .cursor-see{display:grid}
+.contrast-cursor[data-pressed=true] .cursor-shape{scale:.82}
+body:has(dialog[open]) .contrast-cursor{display:none}
+@media(pointer:fine) and (prefers-reduced-motion:no-preference){
+  html.has-contrast-cursor,html.has-contrast-cursor *{cursor:none!important}
+  html.has-contrast-cursor:has(dialog[open]),html.has-contrast-cursor:has(dialog[open]) *{cursor:auto!important}
+}
+.magnetic{translate:var(--magnet-x,0px) var(--magnet-y,0px);transition:translate .3s cubic-bezier(.2,.8,.3,1.2)}
+.canvas-sparks{position:absolute;inset:0;pointer-events:none;z-index:30;overflow:hidden}
+.canvas-sparks>i{position:absolute;width:5px;height:10px;border-radius:1px}
+.frame-walker{position:absolute;left:24%;bottom:calc(100% - 5px);width:clamp(68px,7vw,112px);z-index:8;transform:translateX(-50%)}
+.frame-walker .avatar-character{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:2/3;display:block}
+.walker-art{display:block;width:100%;height:100%;aspect-ratio:2/3;position:relative;transform-origin:50% 95%}
+.walker-art .avatar-sprite{position:absolute;inset:0;width:100%;height:100%;background-position:var(--pose,0%) 0}
+.walker-body{clip-path:inset(0 0 21% 0)}
+.walker-leg-left{clip-path:inset(78% 50% 0 0);transform-origin:40% 79%}
+.walker-leg-right{clip-path:inset(78% 0 0 50%);transform-origin:60% 79%}
+.frame-walker[data-walking=true][data-paused=false] .walker-body{animation:walker-bob .7s ease-in-out infinite}
+.frame-walker[data-walking=true][data-paused=false] .walker-leg-left{animation:walker-step .7s ease-in-out infinite alternate}
+.frame-walker[data-walking=true][data-paused=false] .walker-leg-right{animation:walker-step .7s ease-in-out infinite alternate-reverse}
+.frame-walker[data-paused=true] .walker-body{clip-path:none}
+.frame-walker[data-paused=true] .walker-leg{display:none}
+.frame-walker .avatar-speech{font-size:21px;top:36%;right:calc(100% + 4px)}
+.frame-walker .avatar-speech.is-talking{font-size:12px;min-width:140px}
+.frame-walker .avatar-character.is-greeting .walker-art{animation:avatar-hop .6s cubic-bezier(.2,.7,.2,1)}
+.frame-walker .avatar-hint{top:calc(100% + 9px);font-size:10px}
+.folder-heading p{font-size:12px;letter-spacing:0}
+.folder-bottom h4{line-height:1.5;letter-spacing:0}
+.folder-bottom p{line-height:1.8}
+.product-callout>strong{letter-spacing:0}
+.experience-intro h2{letter-spacing:-.04em}
+@keyframes walker-bob{0%,100%{translate:0 0;rotate:-1deg}50%{translate:0 -2px;rotate:1deg}}
+@keyframes walker-step{from{rotate:-6deg}to{rotate:6deg}}
+@media(max-width:640px){
+  .frame-walker{left:72%;width:65px}
+  .frame-walker .avatar-speech.is-talking{font-size:11px;min-width:130px}
+  .folder-heading p{font-size:10px}
+  .folder-bottom p{font-size:12px}
+  .callout-meta{font-size:9px}
+  .callout-copy{font-size:11px}
+}
+@media(pointer:coarse),(prefers-reduced-motion:reduce){.contrast-cursor{display:none}.magnetic{translate:0 0}}
+@media(prefers-reduced-motion:reduce){.walker-art,.walker-art .avatar-sprite{animation:none!important}}

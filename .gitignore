@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.vite/
+*.log
+
+.env
+.env.*
+*-image-prompt.json
+product-image-prompts.json
